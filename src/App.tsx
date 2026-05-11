@@ -13,6 +13,7 @@ import FreeTyping from "./pages/FreeTyping";
 import CodeTyping from "./pages/CodeTyping";
 import PoliticsTyping from "./pages/PoliticsTyping";
 import Ebook from "./pages/Ebook";
+import Settings from "./pages/Settings";
 import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/code-typing" element={<CodeTyping />} />
           <Route path="/politics-typing" element={<PoliticsTyping />} />
           <Route path="/ebook" element={<Ebook />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
