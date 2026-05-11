@@ -4,10 +4,12 @@ import StarField from "@/components/StarField";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Menu, Rocket, Keyboard, Trophy, Code2, Landmark, BookOpen } from "lucide-react";
+import { Menu, Rocket, Keyboard, Trophy, Code2, Landmark, BookOpen, Settings as SettingsIcon } from "lucide-react";
+import { useT } from "@/lib/settings";
 
 const MainMenu = () => {
   const navigate = useNavigate();
+  const t = useT();
   const [profile, setProfile] = useState(getProfile());
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -42,18 +44,19 @@ const MainMenu = () => {
         </SheetTrigger>
         <SheetContent side="left" className="bg-card/95 backdrop-blur-md border-border w-72">
           <SheetHeader>
-            <SheetTitle className="font-orbitron tracking-[0.2em] gradient-title text-xl">MENU</SheetTitle>
+            <SheetTitle className="font-orbitron tracking-[0.2em] gradient-title text-xl">{t("menu")}</SheetTitle>
             <SheetDescription className="font-mono-share text-xs tracking-widest text-muted-foreground">
-              SELECT A MODE
+              {t("selectMode")}
             </SheetDescription>
           </SheetHeader>
           <nav className="flex flex-col gap-3 mt-8">
-            <DrawerItem icon={<Rocket className="w-4 h-4" />} label="Story Mode" onClick={() => handleMenuClick("/chapters")} />
-            <DrawerItem icon={<Keyboard className="w-4 h-4" />} label="Free Typing" onClick={() => handleMenuClick("/free-typing")} />
-            <DrawerItem icon={<Code2 className="w-4 h-4" />} label="Code Typing" onClick={() => handleMenuClick("/code-typing")} />
-            <DrawerItem icon={<Landmark className="w-4 h-4" />} label="Politics Typing" onClick={() => handleMenuClick("/politics-typing")} />
-            <DrawerItem icon={<BookOpen className="w-4 h-4" />} label="Ebook" onClick={() => { setMenuOpen(false); navigate("/ebook"); }} />
-            <DrawerItem icon={<Trophy className="w-4 h-4" />} label="Leaderboard" onClick={() => handleMenuClick("/leaderboard")} />
+            <DrawerItem icon={<Rocket className="w-4 h-4" />} label={t("storyMode")} onClick={() => handleMenuClick("/chapters")} />
+            <DrawerItem icon={<Keyboard className="w-4 h-4" />} label={t("freeTyping")} onClick={() => handleMenuClick("/free-typing")} />
+            <DrawerItem icon={<Code2 className="w-4 h-4" />} label={t("codeTyping")} onClick={() => handleMenuClick("/code-typing")} />
+            <DrawerItem icon={<Landmark className="w-4 h-4" />} label={t("politicsTyping")} onClick={() => handleMenuClick("/politics-typing")} />
+            <DrawerItem icon={<BookOpen className="w-4 h-4" />} label={t("ebook")} onClick={() => { setMenuOpen(false); navigate("/ebook"); }} />
+            <DrawerItem icon={<Trophy className="w-4 h-4" />} label={t("leaderboard")} onClick={() => handleMenuClick("/leaderboard")} />
+            <DrawerItem icon={<SettingsIcon className="w-4 h-4" />} label={t("settings")} onClick={() => { setMenuOpen(false); navigate("/settings"); }} />
           </nav>
         </SheetContent>
       </Sheet>
