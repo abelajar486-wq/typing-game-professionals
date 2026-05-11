@@ -3,16 +3,20 @@ import { getProfile, getExpToNextRank } from "@/lib/gameStore";
 import StarField from "@/components/StarField";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Menu, Rocket, Keyboard, Trophy, Code2, Landmark } from "lucide-react";
 
 const MainMenu = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(getProfile());
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setProfile(getProfile());
   }, []);
 
   const handleMenuClick = (path: string) => {
+    setMenuOpen(false);
     if (!profile && path !== "/leaderboard") {
       navigate("/register");
     } else {
@@ -25,6 +29,33 @@ const MainMenu = () => {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <StarField />
+
+      {/* Hamburger menu trigger */}
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+        <SheetTrigger asChild>
+          <button
+            aria-label="Open menu"
+            className="absolute top-4 left-4 z-20 p-3 border border-border rounded-lg bg-card/80 backdrop-blur-sm text-primary hover:bg-card border-glow-cyan transition-all"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </SheetTrigger>
+        <SheetContent side="left" className="bg-card/95 backdrop-blur-md border-border w-72">
+          <SheetHeader>
+            <SheetTitle className="font-orbitron tracking-[0.2em] gradient-title text-xl">MENU</SheetTitle>
+            <SheetDescription className="font-mono-share text-xs tracking-widest text-muted-foreground">
+              SELECT A MODE
+            </SheetDescription>
+          </SheetHeader>
+          <nav className="flex flex-col gap-3 mt-8">
+            <DrawerItem icon={<Rocket className="w-4 h-4" />} label="Story Mode" onClick={() => handleMenuClick("/chapters")} />
+            <DrawerItem icon={<Keyboard className="w-4 h-4" />} label="Free Typing" onClick={() => handleMenuClick("/free-typing")} />
+            <DrawerItem icon={<Code2 className="w-4 h-4" />} label="Code Typing" onClick={() => handleMenuClick("/code-typing")} />
+            <DrawerItem icon={<Landmark className="w-4 h-4" />} label="Politics Typing" onClick={() => handleMenuClick("/politics-typing")} />
+            <DrawerItem icon={<Trophy className="w-4 h-4" />} label="Leaderboard" onClick={() => handleMenuClick("/leaderboard")} />
+          </nav>
+        </SheetContent>
+      </Sheet>
 
       {/* Player badge */}
       {profile && (
@@ -42,7 +73,6 @@ const MainMenu = () => {
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center gap-8">
-        {/* Title */}
         <div className="text-center">
           <h1 className="font-orbitron text-6xl md:text-8xl font-black gradient-title tracking-[0.2em] mb-2">
             STARTYPE
@@ -52,29 +82,12 @@ const MainMenu = () => {
           </p>
         </div>
 
-        {/* Menu buttons */}
         <div className="flex flex-col gap-4 w-72 mt-8">
-          <MenuButton
-            label="STORY MODE"
-            icon="🚀"
-            onClick={() => handleMenuClick("/chapters")}
-            glowClass="border-glow-cyan"
-          />
-          <MenuButton
-            label="FREE TYPING"
-            icon="⌨️"
-            onClick={() => handleMenuClick("/free-typing")}
-            glowClass="border-glow-magenta"
-          />
-          <MenuButton
-            label="LEADERBOARD"
-            icon="🏆"
-            onClick={() => navigate("/leaderboard")}
-            glowClass="border-glow-purple"
-          />
+          <MenuButton label="STORY MODE" icon="🚀" onClick={() => handleMenuClick("/chapters")} glowClass="border-glow-cyan" />
+          <MenuButton label="FREE TYPING" icon="⌨️" onClick={() => handleMenuClick("/free-typing")} glowClass="border-glow-magenta" />
+          <MenuButton label="LEADERBOARD" icon="🏆" onClick={() => navigate("/leaderboard")} glowClass="border-glow-purple" />
         </div>
 
-        {/* Bottom hint */}
         {!profile && (
           <p className="font-mono-share text-xs text-muted-foreground mt-4 animate-pulse">
             [ Press any button to register as a Commander ]
@@ -85,23 +98,23 @@ const MainMenu = () => {
   );
 };
 
-const MenuButton = ({
-  label,
-  icon,
-  onClick,
-  glowClass,
-}: {
-  label: string;
-  icon: string;
-  onClick: () => void;
-  glowClass: string;
-}) => (
+const MenuButton = ({ label, icon, onClick, glowClass }: { label: string; icon: string; onClick: () => void; glowClass: string }) => (
   <button
     onClick={onClick}
     className={`relative w-full py-4 px-6 border border-border rounded-lg bg-card/60 backdrop-blur-sm font-orbitron text-sm tracking-[0.3em] text-foreground transition-all duration-300 hover:scale-105 hover:bg-card/90 gradient-underline ${glowClass}`}
   >
     <span className="mr-3">{icon}</span>
     {label}
+  </button>
+);
+
+const DrawerItem = ({ icon, label, onClick }: { icon: React.ReactNode; label: string; onClick: () => void }) => (
+  <button
+    onClick={onClick}
+    className="flex items-center gap-3 w-full py-3 px-4 border border-border rounded-lg bg-card/40 font-orbitron text-xs tracking-[0.2em] text-foreground hover:text-primary hover:border-primary hover:bg-card/80 transition-all"
+  >
+    <span className="text-primary">{icon}</span>
+    {label.toUpperCase()}
   </button>
 );
 

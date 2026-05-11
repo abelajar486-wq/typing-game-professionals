@@ -10,6 +10,8 @@ import ChapterSelect from "./pages/ChapterSelect";
 import LevelSelect from "./pages/LevelSelect";
 import Gameplay from "./pages/Gameplay";
 import FreeTyping from "./pages/FreeTyping";
+import CodeTyping from "./pages/CodeTyping";
+import PoliticsTyping from "./pages/PoliticsTyping";
 import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/levels/:chapterId" element={<LevelSelect />} />
           <Route path="/play/:chapterId/:levelId" element={<Gameplay />} />
           <Route path="/free-typing" element={<FreeTyping />} />
+          <Route path="/code-typing" element={<CodeTyping />} />
+          <Route path="/politics-typing" element={<PoliticsTyping />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
