@@ -4,7 +4,7 @@ import StarField from "@/components/StarField";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Menu, Rocket, Keyboard, Trophy, Code2, Landmark } from "lucide-react";
+import { Menu, Rocket, Keyboard, Trophy, Code2, Landmark, BookOpen } from "lucide-react";
 
 const MainMenu = () => {
   const navigate = useNavigate();
@@ -52,6 +52,7 @@ const MainMenu = () => {
             <DrawerItem icon={<Keyboard className="w-4 h-4" />} label="Free Typing" onClick={() => handleMenuClick("/free-typing")} />
             <DrawerItem icon={<Code2 className="w-4 h-4" />} label="Code Typing" onClick={() => handleMenuClick("/code-typing")} />
             <DrawerItem icon={<Landmark className="w-4 h-4" />} label="Politics Typing" onClick={() => handleMenuClick("/politics-typing")} />
+            <DrawerItem icon={<BookOpen className="w-4 h-4" />} label="Ebook" onClick={() => { setMenuOpen(false); navigate("/ebook"); }} />
             <DrawerItem icon={<Trophy className="w-4 h-4" />} label="Leaderboard" onClick={() => handleMenuClick("/leaderboard")} />
           </nav>
         </SheetContent>
